@@ -2,6 +2,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import ThemeToggle from '@/Components/ThemeToggle';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useState } from 'react';
 
@@ -15,8 +16,8 @@ export default function Authenticated({
         useState(false);
 
     return (
-        <div className="flex min-h-screen flex-col bg-gray-100 dark:bg-gray-900">
-            <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
+        <div className="flex min-h-screen flex-col bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+            <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800 transition-colors duration-300">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
@@ -27,17 +28,18 @@ export default function Authenticated({
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                    <NavLink
-                                        href={route('dashboard')}
-                                        active={route().current('dashboard')}
-                                    >
-                                        Beranda
-                                    </NavLink>
-                                </div>
+                                <NavLink
+                                    href={route('dashboard')}
+                                    active={route().current('dashboard')}
+                                >
+                                    Beranda
+                                </NavLink>
                             </div>
-    
-                            <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                                <div className="relative ms-3">
+                        </div>
+
+                        <div className="hidden sm:ms-6 sm:flex sm:items-center sm:space-x-4">
+                            <ThemeToggle />
+                            <div className="relative">
                                     <Dropdown>
                                         <Dropdown.Trigger>
                                             <span className="inline-flex rounded-md">
@@ -130,39 +132,42 @@ export default function Authenticated({
                             ' sm:hidden'
                         }
                     >
-                        <div className="space-y-1 pb-3 pt-2">
-                            <ResponsiveNavLink
-                                href={route('dashboard')}
-                                active={route().current('dashboard')}
-                            >
-                                Beranda
-                            </ResponsiveNavLink>
-                        </div>
-    
-                        <div className="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
-                            <div className="px-4">
-                                <div className="text-base font-medium text-gray-800 dark:text-gray-200">
-                                    {user.name}
-                                </div>
-                                <div className="text-sm font-medium text-gray-500">
-                                    {user.email}
-                                </div>
+                <div className="space-y-1 pb-3 pt-2">
+                    <ResponsiveNavLink
+                        href={route('dashboard')}
+                        active={route().current('dashboard')}
+                    >
+                        Beranda
+                    </ResponsiveNavLink>
+                </div>
+
+                <div className="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
+                    <div className="flex items-center justify-between px-4">
+                        <div>
+                            <div className="text-base font-medium text-gray-800 dark:text-gray-200">
+                                {user.name}
                             </div>
-    
-                            <div className="mt-3 space-y-1">
-                                <ResponsiveNavLink href={route('profile.edit')}>
-                                    Profil
-                                </ResponsiveNavLink>
-                                <ResponsiveNavLink
-                                    method="post"
-                                    href={route('logout')}
-                                    as="button"
-                                >
-                                    Keluar
-                                </ResponsiveNavLink>
+                            <div className="text-sm font-medium text-gray-500">
+                                {user.email}
                             </div>
                         </div>
+                        <ThemeToggle />
                     </div>
+
+                    <div className="mt-3 space-y-1">
+                        <ResponsiveNavLink href={route('profile.edit')}>
+                            Profil
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            method="post"
+                            href={route('logout')}
+                            as="button"
+                        >
+                            Keluar
+                        </ResponsiveNavLink>
+                    </div>
+                </div>
+            </div>
             </nav>
 
             {header && (
