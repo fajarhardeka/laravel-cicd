@@ -29,6 +29,11 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+            'captcha' => ['required', 'string', function ($attribute, $value, $fail) {
+                if ($value != session('login_captcha')) {
+                    $fail('Captcha yang Anda masukkan salah.');
+                }
+            }],
         ];
     }
 
