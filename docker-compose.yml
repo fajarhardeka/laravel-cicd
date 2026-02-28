@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/laravel-docker:/var/www/laravel-docker
+    ports:
+      - "9000:9000"
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:8.0
+    container_name: laravel_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: dblaravel_todo
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: dblaravel_user
+      MYSQL_PASSWORD: DBp4ssword182
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+networks:
+  laravel:
+
+volumes:
+  mysql_data:
